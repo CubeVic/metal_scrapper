@@ -34,3 +34,15 @@ repos:
         exclude: metalScrapper/metalScrapper/(settings|middlewares|pipelines).py
         args: [--extend-ignore, "#To avoid error due to the length of the line  E501", ]
         verbose: true
+
+ci:
+    autofix_commit_msg: |
+        [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+        for more information, see https://pre-commit.ci
+    autofix_prs: true
+    autoupdate_branch: 'environment/pre-commit'
+    autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+    autoupdate_schedule: weekly
+    skip: []
+    submodules: false
