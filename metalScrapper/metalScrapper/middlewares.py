@@ -1,12 +1,12 @@
+# -*- coding: utf-8 -*-
 # Define here the models for your spider middleware
 #
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
+from itemadapter import is_item
+from itemadapter import ItemAdapter
 from scrapy import signals
-
 # useful for handling different item types with a single interface
-from itemadapter import is_item, ItemAdapter
 
 
 class MetalscrapperSpiderMiddleware:
