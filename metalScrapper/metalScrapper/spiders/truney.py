@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 import scrapy
-from metalScrapper.items import Truney
 from scrapy.loader import ItemLoader
+
+from metalScrapper.items import Truney
 
 
 

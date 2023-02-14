@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 import scrapy
-from metalScrapper.items import Kitco
 from scrapy.loader import ItemLoader
+
+from metalScrapper.items import Kitco
 
 
 class KitcoSpider(scrapy.Spider):
