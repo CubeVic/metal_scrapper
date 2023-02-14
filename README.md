@@ -1,5 +1,6 @@
 ![Bullion_scrapper](Bullion_scrapper.png)
 # Bullion Scrapper (metal_scrapper)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/CubeVic/metal_scrapper/main.svg)](https://results.pre-commit.ci/latest/github/CubeVic/metal_scrapper/main)
 
 Scrapper for bullion dealers in Taiwan.
 
