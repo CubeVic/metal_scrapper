@@ -1,6 +1,12 @@
 ![Bullion_scrapper](Bullion_scrapper.png)
 # Bullion Scrapper (metal_scrapper)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/CubeVic/metal_scrapper/main.svg)](https://results.pre-commit.ci/latest/github/CubeVic/metal_scrapper/main)
+
+> build with:
+>
+>![Python](https://img.shields.io/badge/python-3.10-blue.svg?style=for-the-badge&logo=python)
+![Scrapy](https://img.shields.io/badge/scrapy-2.8.0-green.svg?style=for-the-badge&logo=scrapy)
+
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/CubeVic/metal_scrapper/main.svg?style=for-the-badge)](https://results.pre-commit.ci/latest/github/CubeVic/metal_scrapper/main?style=for-the-badge)
 
 Scrapper for bullion dealers in Taiwan.
 
