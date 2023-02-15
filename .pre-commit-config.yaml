@@ -1,0 +1,48 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: debug-statements
+    -   id: check-merge-conflict
+    -   id: check-symlinks
+    -   id: detect-private-key
+    -   id: fix-encoding-pragma
+    -   id: check-docstring-first
+    -   id: check-byte-order-marker
+    -   id: check-json
+    -   id: check-yaml
+    -   id: check-toml
+    -   id: mixed-line-ending
+    -   id: check-ast
+
+-   repo: https://github.com/asottile/reorder_python_imports
+    rev: v3.9.0
+    hooks:
+    -   id: reorder-python-imports
+        name: reorder python imports - limited to spider folder
+        args: [
+          --application-directories, '.:metalScrapper/spiders'
+        ]
+
+-   repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+    -   id: flake8
+        name: flake8 - Excluding E501 to avoid error due to the length of the line
+        exclude: metalScrapper/metalScrapper/(settings|middlewares|pipelines).py
+        args: [--extend-ignore, "#To avoid error due to the length of the line  E501", ]
+        verbose: true
+
+ci:
+    autofix_commit_msg: |
+        [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+        for more information, see https://pre-commit.ci
+    autofix_prs: true
+    autoupdate_branch: 'environment/pre-commit'
+    autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+    autoupdate_schedule: weekly
+    skip: []
+    submodules: false
