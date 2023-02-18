@@ -25,7 +25,7 @@ ENV         POETRY_VIRTUALENVS_IN_PROJECT=true
 ENV         PATH=/root/.local/bin:$PATH
 
 COPY        --from=poetry /root/.local /root/.local
-COPY        pyproject.toml poetry.lock ./
+COPY        ../pyproject.toml poetry.lock ./
 
 RUN         apk add --no-cache --virtual .build-deps \
               build-base \
@@ -51,4 +51,4 @@ CMD         ["crawl kitco"]
 
 COPY        --from=poetry /root/.local /root/.local
 COPY        --from=builder /usr/app/.venv /usr/app/.venv
-COPY        . .
+COPY        .. .
