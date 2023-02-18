@@ -1,54 +1,36 @@
-ARG         base=python:3.10-alpine3.17
+
+FROM        python:3.10 AS python-base
+
+ENV         POETRY_VERSION=1.2.2
+ENV         POETRY_HOME=/opt/poetry
+ENV         POETRY_VENV=/opt/poetry-venv
+ENV         POETRY_CACHE_DIR=/opt/.cahce
 
 ###
 
-FROM        ${base} AS poetry
+FROM        python-base AS poetry-base
 
-ARG         MAKEFLAGS
-ARG         POETRY_VERSION=1.2.2
-
-RUN         apk add --no-cache --virtual .build-deps \
-                curl \
-                build-base \
-                libffi-dev && \
-            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/install-poetry.py | python && \
-            apk del .build-deps
+RUN         python3 -m venv $POETRY_VENV \
+	          && $POETRY_VENV/bin/pip install -U pip setuptools \
+	          && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
 
 ###
 
-FROM        ${base} as builder
+FROM        python-base AS Application
 
-WORKDIR     /usr/app
+COPY        --from=poetry-base ${POETRY_VENV}   ${POETRY_VENV}
 
-ENV         PATH=.venv/bin:$PATH
-ENV         POETRY_VIRTUALENVS_IN_PROJECT=true
-ENV         PATH=/root/.local/bin:$PATH
+ENV         PATH="${PATH}:${POETRY_VENV}/bin"
 
-COPY        --from=poetry /root/.local /root/.local
-COPY        ../pyproject.toml poetry.lock ./
+WORKDIR     /app
 
-RUN         apk add --no-cache --virtual .build-deps \
-              build-base \
-              libffi-dev \
-              openssl-dev \
-              rust \
-              cargo && \
-            poetry install -vv -n --no-dev --no-root --remove-untracked && \
-            apk del .build-deps
+COPY        poetry.lock pyproject.toml  ./
 
-###
+RUN         poetry check
 
-FROM        ${base}
+RUN         poetry install -vv -n --no-dev --no-root --remove-untracked
 
-WORKDIR     /usr/app
+COPY        .   /app
 
-ENV         PYTHON_VENV=/usr/app/.venv
-ENV         PATH=/root/.local/bin:$PYTHON_VENV/bin:$PATH
-ENV         PYTHONPATH=/usr/app/libs
-
-ENTRYPOINT  ["scrapy"]
-CMD         ["crawl kitco"]
-
-COPY        --from=poetry /root/.local /root/.local
-COPY        --from=builder /usr/app/.venv /usr/app/.venv
-COPY        .. .
+ENTRYPOINT  ["poetry"]
+CMD         ["run", "scrapy", "crawl", "kitco"]
