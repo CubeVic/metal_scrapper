@@ -16,6 +16,7 @@ repos:
     -   id: check-toml
     -   id: mixed-line-ending
     -   id: check-ast
+    -   id: double-quote-string-fixer
 
 -   repo: https://github.com/asottile/reorder_python_imports
     rev: v3.9.0
@@ -34,6 +35,23 @@ repos:
         exclude: metalScrapper/metalScrapper/(settings|middlewares|pipelines).py
         args: [--extend-ignore, "#To avoid error due to the length of the line  E501", ]
         verbose: true
+
+-   repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v2.0.1
+    hooks:
+    -   id: autopep8
+
+-   repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.4.0
+    hooks:
+    -   id: add-trailing-comma
+
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v3.3.1
+    hooks:
+    -   id: pyupgrade
+        args: [--py37-plus]
+
 
 ci:
     autofix_commit_msg: |
